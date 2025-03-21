@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Securemove Logistics - Quote Acceptance</title>
+
+    <!--Link to CSS-->
+    <link rel="stylesheet" href="style.css">
+    <!--Box Icons-->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+</head>
+
+<body>
+    <!--Header-->
+    <header>
+        <a href="#" class="logo"><img src="img/logo.jpg" alt=""></a>
+
+        <div class="bx bx-menu" id="menu"></div>
+
+        <ul class="navbar" id="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#quote">Quote</a></li>
+        </ul>
+
+        <div class="header-btn">
+            <a href="#" class="sign-up">Sign Up</a>
+            <a href="#" class="login">Login</a>
+        </div>
+    </header>
+
+    <!--Quote Acceptance-->
+    <section class="quote-acceptance" id="quote">
+        <div class="heading">
+            <span>Quote Details</span>
+            <h1>Review and Accept or Reject Quote</h1>
+        </div>
+
+        <div class="quote-container">
+            <div class="quote-info">
+                <h2>Your Quote</h2>
+                <p><strong>Service:</strong> Door-to-Door Delivery</p>
+                <p><strong>Pick-Up Location:</strong> Johannesburg</p>
+                <p><strong>Drop-Off Location:</strong> Cape Town</p>
+                <p><strong>Pick-Up Date:</strong> 10th March 2025</p>
+                <p><strong>Drop-Off Date:</strong> 12th March 2025</p>
+                <p><strong>Total Cost:</strong> $500.00</p>
+                <p><strong>Additional Notes:</strong> Price may vary based on volume and weight of the goods. Please confirm the details before accepting the quote.</p>
+            </div>
+
+            <div class="quote-actions">
+                <h3>Would you like to accept or reject the quote?</h3>
+                <div class="actions">
+                    <a href="payment.html" class="btn accept-btn" id="acceptBtn">Accept Quote</a>
+                    <a href="#" class="btn reject-btn" id="rejectBtn">Reject Quote</a>
+                </div>
+                <p id="responseMessage"></p>
+            </div>
+        </div>
+    </section>
+
+    <!--Footer-->
+    <footer>
+        <div class="copyright">
+            <p> &#169; Securemove Logistics All Rights Reserved</p>
+            <div class="social">
+                <a href="#" class="social-icon"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="social-icon"><i class="bx bxl-twitter"></i></a>
+                <a href="https://www.instagram.com/securemove_logistics/" class="social-icon"><i class="bx bxl-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("menu").addEventListener("click", function () {
+            document.getElementById("navbar").classList.toggle("active");
+        });
+      
+        document.getElementById("acceptBtn").addEventListener("click", function (event) {
+    event.preventDefault();
+    
+    // Optional: Show a confirmation message before navigating
+    document.getElementById("responseMessage").textContent = "You have accepted the quote. Redirecting...";
+    document.getElementById("responseMessage").style.color = "green";
+
+    // Redirect to another page 
+    setTimeout(() => {
+        window.location.href = "payment.html"; 
+    }, 2000); // 2 seconds delay before redirecting
+});
+
+
+        document.getElementById("rejectBtn").addEventListener("click", function (event) {
+            event.preventDefault();
+            document.getElementById("responseMessage").textContent = "You have rejected the quote. Please contact us if you need modifications.";
+            document.getElementById("responseMessage").style.color = "red";
+
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>
+

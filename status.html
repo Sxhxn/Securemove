@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Securemove Logistics - Track Your Order</title>
+
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Box Icons -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo"><img src="img/logo.jpg" alt=""></a>
+
+        <div class="bx bx-menu" id="menu"></div>
+
+        <ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+        </ul>
+
+        <div class="header-btn">
+            <a href="#" class="sign-up">Sign Up</a>
+            <a href="#" class="login">Login</a>
+        </div>
+    </header>
+
+    <!-- Customer Track Status -->
+    <section class="track-status" id="track-status">
+        <div class="heading">
+            <span>Track Your Order</span>
+            <h1>Check the Status of Your Transport</h1>
+        </div>
+
+        <div class="track-status-container">
+            <div class="order-info">
+                <h2>Order Details</h2>
+                <p><strong>Customer Name:</strong> </p>
+                <p><strong>Order ID:</strong> <input type="text" id="order-id" placeholder="Enter Order ID"></p>
+                <p><strong>Service:</strong> </p>
+                <p><strong>Pick-Up Location:</strong> </p>
+                <p><strong>Drop-Off Location:</strong> </p>
+                <p><strong>Estimated Delivery Date:</strong> </p>
+            </div>
+
+            <!-- Status Display -->
+            <div class="status-display">
+                <h2>Status of Your Order</h2>
+                <div class="status-box">
+                    <span class="status-label">Current Status:</span>
+                    <span class="status" id="status">Awaiting Update</span>
+                </div>
+                <div class="status-timeline">
+                    <div class="status-step">
+                        <span class="step-title">Pickup</span>
+                        <div class="status-circle" id="pickup-status"></div>
+                    </div>
+                    <div class="status-step">
+                        <span class="step-title">In Transit</span>
+                        <div class="status-circle" id="in-transit-status"></div>
+                    </div>
+                    <div class="status-step">
+                        <span class="step-title">Drop-off</span>
+                        <div class="status-circle" id="dropoff-status"></div>
+                    </div>
+                    <div class="status-step">
+                        <span class="step-title">Delivered</span>
+                        <div class="status-circle" id="delivered-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Track Button -->
+            <div class="track-btn">
+                <button class="btn" id="track-btn">Track Order</button>
+                <button class="btn" id="proof-btn">Proof Of Delivery</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="copyright">
+            <p> &#169; Securemove Logistics All Rights Reserved</p>
+            <div class="social">
+                <a href="#" class="social-icon"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="social-icon"><i class="bx bxl-twitter"></i></a>
+                <a href="https://www.instagram.com/securemove_logistics/" class="social-icon"><i class="bx bxl-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS for status updates -->
+    <script>
+        let orderStatus = [
+            "Pickup",
+            "In Transit",
+            "Drop-off",
+            "Delivered"
+        ]; // Simulated order status steps
+
+        let currentStepIndex = 0; // To keep track of the current step
+
+        // Reset status colors
+        function resetStatus() {
+            document.getElementById('pickup-status').style.backgroundColor = "#ddd";
+            document.getElementById('in-transit-status').style.backgroundColor = "#ddd";
+            document.getElementById('dropoff-status').style.backgroundColor = "#ddd";
+            document.getElementById('delivered-status').style.backgroundColor = "#ddd";
+            document.getElementById('status').innerHTML = "Awaiting Update";
+        }
+
+        // Track order when button is clicked
+        document.getElementById('track-btn').addEventListener('click', function () {
+            const orderId = document.getElementById('order-id').value.trim(); // Get the order ID
+            if (orderId) {
+                resetStatus(); // Reset status and colors before starting the update process
+                simulateOrderTracking(orderId);
+            } else {
+                alert("Please enter a valid order ID.");
+            }
+        });
+
+        // Function to simulate order tracking
+        function simulateOrderTracking(orderId) {
+            const statusElement = document.getElementById('status');
+            const pickupStatus = document.getElementById('pickup-status');
+            const inTransitStatus = document.getElementById('in-transit-status');
+            const dropoffStatus = document.getElementById('dropoff-status');
+            const deliveredStatus = document.getElementById('delivered-status');
+
+            // For simplicity, cycle through the status
+            currentStepIndex = 0; // Reset current step index before starting again
+
+            let interval = setInterval(function () {
+                if (currentStepIndex < orderStatus.length) {
+                    const currentStatus = orderStatus[currentStepIndex];
+                    statusElement.innerHTML = currentStatus; // Update current status
+
+                    // Update the timeline based on the status
+                    if (currentStatus === "Pickup") {
+                        pickupStatus.style.backgroundColor = "green";
+                    } else if (currentStatus === "In Transit") {
+                        pickupStatus.style.backgroundColor = "green";
+                        inTransitStatus.style.backgroundColor = "yellow";
+                    } else if (currentStatus === "Drop-off") {
+                        pickupStatus.style.backgroundColor = "green";
+                        inTransitStatus.style.backgroundColor = "yellow";
+                        dropoffStatus.style.backgroundColor = "orange";
+                    } else if (currentStatus === "Delivered") {
+                        pickupStatus.style.backgroundColor = "green";
+                        inTransitStatus.style.backgroundColor = "yellow";
+                        dropoffStatus.style.backgroundColor = "orange";
+                        deliveredStatus.style.backgroundColor = "green";
+                        clearInterval(interval); // Stop after the last step
+                    }
+
+                    currentStepIndex++;
+                }
+            }, 2000); // Update every 2 seconds to simulate status change
+
+
+            
+        };
+
+        document.getElementById('proof-btn').addEventListener('click', function () {
+            setTimeout(() => {
+                window.location.href = "proofofdel.html";
+            }, 1000);
+        });
+
+
+        
+    </script>
+
+</body>
+
+</html>

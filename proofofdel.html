@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Securemove Logistics - Proof of Delivery</title>
+
+    <!--Link to CSS-->
+    <link rel="stylesheet" href="style.css">
+    <!--Box Icons-->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+</head>
+
+<body>
+    <!--Header-->
+    <header>
+        <a href="#" class="logo"><img src="img/logo.jpg" alt=""></a>
+
+        <div class="bx bx-menu" id="menu"></div>
+
+        <ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+        </ul>
+
+        <div class="header-btn">
+            <a href="#" class="sign-up">Sign Up</a>
+            <a href="#" class="login">Login</a>
+        </div>
+    </header>
+
+    <!--Proof of Delivery Section-->
+    <section class="proof-of-delivery" id="proof-of-delivery">
+        <div class="heading">
+            <span>Proof of Delivery</span>
+            <h1>Confirm Your Delivery</h1>
+        </div>
+
+        <div class="proof-container">
+            <!-- Order Information -->
+            <div class="order-info">
+                <h2>Order Details</h2>
+                <p><strong>Customer Name:</strong> </p>
+                <p><strong>Order ID:</strong> </p>
+                <p><strong>Service:</strong> Door-To-Door Delivery</p>
+                <p><strong>Pick-Up Location:</strong> </p>
+                <p><strong>Drop-Off Location:</strong> </p>
+                <p><strong>Estimated Delivery Date:</strong> </p>
+            </div>
+
+            <!-- Proof of Delivery Image -->
+            <div class="proof-image">
+                <h2>Proof of Delivery</h2>
+                <p>Click below to view the proof of delivery (signed receipt or photo).</p>
+                <div class="image-container">
+                    <img src="img/proof-of-delivery.jpg" alt="Proof of Delivery" id="proof-image">
+                </div>
+            </div>
+
+            <!-- Confirm Delivery Button -->
+            <div class="confirm-delivery">
+                <h3>Is your delivery complete and correct?</h3>
+                <div class="confirmation-buttons">
+                    <button class="btn confirm" id="confirm-btn">Yes, Confirm Delivery</button>
+                    <button class="btn reject" id="reject-btn">No, Reject Delivery</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--Footer-->
+    <footer>
+        <div class="copyright">
+            <p> &#169; Securemove Logistics All Rights Reserved</p>
+            <div class="social">
+                <a href="#" class="social-icon"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="social-icon"><i class="bx bxl-twitter"></i></a>
+                <a href="https://www.instagram.com/securemove_logistics/" class="social-icon"><i class="bx bxl-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS for confirmation action -->
+    <script>
+        document.getElementById('confirm-btn').addEventListener('click', function () {
+            alert("Thank you! Your delivery has been confirmed.");
+            // You could add more functionality here, like sending a confirmation to the server.
+
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 2000);
+        });
+
+        document.getElementById('reject-btn').addEventListener('click', function () {
+            alert("We're sorry! Please contact customer support for further assistance.");
+            // You could add more functionality here, like reporting the issue to customer support.
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>
+
