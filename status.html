@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Securemove Logistics - Track Your Order</title>
+
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Box Icons -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo"><img src="img/logo.jpg" alt=""></a>
+
+
+
+        <ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+        </ul>
+
+        <div class="header-btn">
+            <a href="signuplogin.html" class="sign-up">Sign Up</a>
+            <a href="signuplogin.html" class="login">Login</a>
+        </div>
+    </header>
+
+    <!-- Customer Track Status -->
+    <section class="track-status" id="track-status">
+        <div class="heading">
+            <span>Track Your Order</span>
+            <h1>Check the Status of Your Transport</h1>
+        </div>
+
+        <div class="track-status-container">
+            <div class="order-info">
+                <h2>Order Details</h2>
+                <p><strong>Customer Name:</strong> </p>
+                <p><strong>Order ID:</strong> <input type="text" id="order-id" placeholder="Enter Order ID"></p>
+                <p><strong>Service:</strong> </p>
+                <p><strong>Pick-Up Location:</strong> </p>
+                <p><strong>Drop-Off Location:</strong> </p>
+                <p><strong>Estimated Delivery Date:</strong> </p>
+            </div>
+
+            <!-- Status Display -->
+            <div class="status-display">
+                <h2>Status of Your Order</h2>
+                <div class="status-box">
+                    <span class="status-label">Current Status:</span>
+                    <span class="status" id="status">Awaiting Update</span>
+                </div>
+                <div class="status-timeline">
+                    <div class="status-step">
+                        <span class="step-title">Pickup</span>
+                        <div class="status-circle" id="pickup-status"></div>
+                    </div>
+                    <div class="status-step">
+                        <span class="step-title">In Transit</span>
+                        <div class="status-circle" id="in-transit-status"></div>
+                    </div>
+                    <div class="status-step">
+                        <span class="step-title">Drop-off</span>
+                        <div class="status-circle" id="dropoff-status"></div>
+                    </div>
+                    <div class="status-step">
+                        <span class="step-title">Delivered</span>
+                        <div class="status-circle" id="delivered-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Track Button -->
+            <div class="track-btn">
+                <button class="btn" id="track-btn">Track Order</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="copyright">
+            <p> &#169; Securemove Logistics All Rights Reserved</p>
+            <div class="social">
+                <a href="https://www.instagram.com/securemove_logistics/" class="social-icon"><i class="bx bxl-instagram"></i></a>
+                <a href="https://wa.me/27793868100" target="_blank" i class="bx bxl-whatsapp"></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS for status updates -->
+    <script type="module">
+        // Import Firebase modules correctly
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+    
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDyF0hdE5FATvaDMjd1GW8Rq1TDowvFaQ8",
+            authDomain: "move-logistics-14677.firebaseapp.com",
+            databaseURL: "https://move-logistics-14677-default-rtdb.firebaseio.com/",
+            projectId: "move-logistics-14677",
+            storageBucket: "move-logistics-14677.appspot.com",
+            messagingSenderId: "490285994631",
+            appId: "1:490285994631:web:f98ae6fc1294d8a972de22",
+            measurementId: "G-TSKTZ74GJR"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+    
+        // Order status steps
+        let orderStatus = ["Pickup", "In Transit", "Drop-off", "Delivered"];
+    
+        function resetStatus() {
+            document.getElementById('pickup-status').style.backgroundColor = "#ddd";
+            document.getElementById('in-transit-status').style.backgroundColor = "#ddd";
+            document.getElementById('dropoff-status').style.backgroundColor = "#ddd";
+            document.getElementById('delivered-status').style.backgroundColor = "#ddd";
+            document.getElementById('status').innerHTML = "Awaiting Update";
+        }
+    
+        document.getElementById('track-btn').addEventListener('click', async function () {
+            const orderId = document.getElementById('order-id').value.trim();
+            if (!orderId) {
+                alert("Please enter a valid order ID.");
+                return;
+            }
+    
+            resetStatus();
+    
+            // Reference to the Orders node
+            const dbRef = ref(database);
+    
+            try {
+                // Get order details from Firebase
+                const snapshot = await get(child(dbRef, `Orders/${orderId}`));
+    
+                if (snapshot.exists()) {
+                    const orderData = snapshot.val();
+                    displayOrderDetails(orderData);
+                    simulateOrderTracking();
+                } else {
+                    alert("Order not found! Please enter a valid Order ID.");
+                }
+            } catch (error) {
+                console.error("Error fetching order data:", error);
+                alert("An error occurred while fetching the order data.");
+            }
+        });
+    
+        function displayOrderDetails(Order) {
+            document.querySelector(".order-info").innerHTML = `
+                <h2>Order Details</h2>
+                <p><strong>Customer Name:</strong> ${Order.customerName}</p>
+                <p><strong>Order ID:</strong> ${Order.orderId}</p>
+                <p><strong>Service:</strong> ${Order.service}</p>
+                <p><strong>Pick-Up Location:</strong> ${Order.pickupLocation}</p>
+                <p><strong>Drop-Off Location:</strong> ${Order.dropoffLocation}</p>
+                <p><strong>Estimated Delivery Date:</strong> ${Order.estimatedDeliveryDate}</p>
+            `;
+        }
+    
+        function simulateOrderTracking() {
+            const statusElement = document.getElementById('status');
+            const pickupStatus = document.getElementById('pickup-status');
+            const inTransitStatus = document.getElementById('in-transit-status');
+            const dropoffStatus = document.getElementById('dropoff-status');
+            const deliveredStatus = document.getElementById('delivered-status');
+    
+            let currentStepIndex = 0;
+    
+            let interval = setInterval(function () {
+                if (currentStepIndex < orderStatus.length) {
+                    const currentStatus = orderStatus[currentStepIndex];
+                    statusElement.innerHTML = currentStatus;
+    
+                    if (currentStatus === "Pickup") {
+                        pickupStatus.style.backgroundColor = "green";
+                    } else if (currentStatus === "In Transit") {
+                        pickupStatus.style.backgroundColor = "green";
+                        inTransitStatus.style.backgroundColor = "yellow";
+                    } else if (currentStatus === "Drop-off") {
+                        pickupStatus.style.backgroundColor = "green";
+                        inTransitStatus.style.backgroundColor = "yellow";
+                        dropoffStatus.style.backgroundColor = "orange";
+                    } else if (currentStatus === "Delivered") {
+                        pickupStatus.style.backgroundColor = "green";
+                        inTransitStatus.style.backgroundColor = "yellow";
+                        dropoffStatus.style.backgroundColor = "orange";
+                        deliveredStatus.style.backgroundColor = "red";
+                        clearInterval(interval);
+                    }
+    
+                    currentStepIndex++;
+                }
+            }, 2000);
+        }
+    
+    </script>
+    
+    
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Securemove Logistics - Quote Acceptance</title>
+
+    <!--Link to CSS-->
+    <link rel="stylesheet" href="style.css">
+    <!--Box Icons-->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+</head>
+
+<body>
+    <!--Header-->
+    <header>
+        <a href="index.html" class="logo"><img src="img/logo.jpg" alt=""></a>
+
+
+
+        <ul class="navbar" id="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#quote">Quote</a></li>
+        </ul>
+
+        <div class="header-btn">
+            <a href="signuplogin.html" class="sign-up">Sign Up</a>
+            <a href="signuplogin.html" class="login">Login</a>
+        </div>
+    </header>
+
+    <!--Quote Acceptance-->
+    <section class="quote-acceptance" id="quote">
+        <div class="heading">
+            <span>Quote Details</span>
+            <h1>Review and Accept or Reject Quote</h1>
+        </div>
+
+        <div class="quote-container">
+            <div class="quote-info">
+                <h2>Your Quote</h2>
+                <p><strong>Service:</strong> Door-to-Door Delivery</p>
+                <p><strong>Pick-Up Location:</strong> </p>
+                <p><strong>Drop-Off Location:</strong> </p>
+                <p><strong>Pick-Up Date:</strong> </p>
+                <p><strong>Drop-Off Date:</strong></p>
+                <p><strong>Weight:</strong> </p>
+                <p><strong>Length:</strong> </p>
+                <p><strong>Height:</strong> </p>
+                <p><strong>Total Cost:</strong> </p>
+                <p><strong>Additional Notes:</strong> Price may vary based on the type of the goods and the quantity. Please confirm the details before accepting the quote.</p>
+            </div>
+
+            <div class="quote-actions">
+                <h3>Would you like to accept or reject the quote?</h3>
+                <div class="actions">
+                    <a href="payment.html" class="btn accept-btn" id="acceptBtn">Accept Quote</a>
+                    <a href="#" class="btn reject-btn" id="rejectBtn">Reject Quote</a>
+                </div>
+                <p id="responseMessage"></p>
+            </div>
+        </div>
+    </section>
+
+    <!--Footer-->
+    <footer>
+        <div class="copyright">
+            <p> &#169; Securemove Logistics All Rights Reserved</p>
+            <div class="social">
+
+                <a href="https://www.instagram.com/securemove_logistics/" class="social-icon"><i class="bx bxl-instagram"></i></a>
+                <a href="https://wa.me/27793868100" target="_blank" i class="bx bxl-whatsapp"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const transportData = JSON.parse(localStorage.getItem("Orders"));
+
+    if (transportData) {
+        document.querySelector(".quote-info").innerHTML = `
+            <h2>Your Quote</h2>
+            <p><strong>Full Name:</strong> ${transportData.name}</p>
+            <p><strong>Email:</strong> ${transportData.email}</p>
+            <p><strong>Phone Number:</strong> ${transportData.phone}</p>
+            <p><strong>Pick-Up Location:</strong> ${transportData.pickup_address}</p>
+            <p><strong>Drop-Off Location:</strong> ${transportData.dropoff_address}</p>
+            <p><strong>Pick-Up Date:</strong> ${transportData.pickup_date}</p>
+            <p><strong>Drop-Off Date:</strong> ${transportData.dropoff_date}</p>
+            <p><strong>Special Instructions:</strong> ${transportData.special_instructions}</p>
+            <p><strong>Total Cost:</strong> ${transportData.total_price} </p>
+            <p><strong>Width:</strong> ${transportData.width} </p>
+            <p><strong>Length:</strong> ${transportData.length} </p>
+            <p><strong>Height:</strong> ${transportData.height} </p>
+            <p><strong>Additional Notes:</strong> Price may vary based on quantity of goods. Please confirm the details before accepting the quote.</p>
+        `;
+    } else {
+        document.querySelector(".quote-info").innerHTML = `<p>No transport request data found.</p>`;
+    }
+});
+
+
+      
+    document.getElementById("acceptBtn").addEventListener("click", function (event) {
+    event.preventDefault();
+    
+   // localStorage.removeItem("transportRequest"); // Clear data
+    
+    document.getElementById("responseMessage").textContent = "You have accepted the quote. Redirecting...";
+    document.getElementById("responseMessage").style.color = "green";
+
+    setTimeout(() => {
+        window.location.href = "payment.html";
+    }, 2000);
+});
+
+document.getElementById("rejectBtn").addEventListener("click", function (event) {
+    event.preventDefault();
+    
+ //   localStorage.removeItem("transportRequest"); // Clear data
+
+    document.getElementById("responseMessage").textContent = "You have rejected the quote. Please contact us if you need modifications.";
+    document.getElementById("responseMessage").style.color = "red";
+
+    setTimeout(() => {
+        window.location.href = "index.html";
+    }, 2000);
+  
+});
+
+  
+    </script>
+</body>
+
+</html>
+

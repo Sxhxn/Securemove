@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Securemove Logistics - Transport Request</title>
+
+    <!--Link to CSS-->
+    <link rel="stylesheet" href="style.css">
+    <!--Box Icons-->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+</head>
+<style>
+    /* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    height: 150vh;
+}
+
+/* Header */
+
+header{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #eeeff1;
+    padding: 15px 100px;
+}
+
+.logo img{
+    width: 90px;
+}
+
+.navbar{
+    display: flex;
+}
+
+.navbar li{
+    position: relative;
+}
+
+.navbar a{
+    font-size: 1rem;
+    padding: 10px 20px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.navbar a::after{
+   content: "";
+   width: 0;
+   height: 3px;
+   background: var(--gradinet);
+   position: absolute;
+   bottom: -4px;
+   left: 0;
+   transition: 0.5s;
+}
+
+.navbar a:hover::after{
+    width: 100%;
+}
+
+.header-btn a {
+    background: white;
+    color: #007bff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.header-btn a:hover {
+    background: #0056b3;
+    color: white;
+}
+
+/* Transport Request Section */
+.transport-request {
+    padding: 170px 50px 50px;   
+}
+
+
+.heading h1 {
+    text-align: center;
+    color: #007bff;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.request-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+}
+
+.request-form label {
+    display: block;
+    font-weight: 500;
+    margin: 10px 0 5px;
+}
+
+.request-form input,
+.request-form select,
+.request-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.request-form textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+.request-btn {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.request-btn .btn {
+    background: #007bff;
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.request-btn .btn:hover {
+    background: #0056b3;
+}
+
+/* Price Display */
+.price-display {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #28a745;
+}
+
+/* Footer */
+footer {
+    background: white;
+    color: black;
+    text-align: center;
+    padding: 20px; 
+    margin-top: 50px;
+}
+
+footer .social a {
+    color: black;
+    margin: 0 10px;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+footer .social a:hover {
+    color: #007bff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .navbar {
+        flex-direction: column;
+        padding-top: 10px;
+    }
+
+    .navbar li {
+        margin: 10px 0;
+    }
+
+    .transport-request {
+        padding: 120px 20px 50px;
+    }
+
+    .request-container {
+        max-width: 100%;
+    }
+}
+
+</style>
+
+<body>
+    <!--Header-->
+    <header>
+        <a href="#" class="logo"><img src="img/logo.jpg" alt=""></a>
+
+        <div class="bx bx-menu" id="menu"></div>
+
+        <ul class="navbar" id="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#transport">Transport Request</a></li>
+        </ul>
+
+        <div class="header-btn">
+            <a href="signuplogin.html" class="sign-up">Sign Up</a>
+            <a href="signuplogin.html" class="login">Login</a>
+        </div>
+    </header>
+
+    <!--Transport Request-->
+    <section class="transport-request" id="transport">
+        <div class="heading">
+            <span>Transport Request</span>
+            <h1>Request for Pickup & Drop-off</h1>
+        </div>
+
+        <div class="request-container">
+            <form id="request-form" class="request-form">
+                <!-- Customer Details Section -->
+                <div class="customer-info">
+                    <h2>Customer Details</h2>
+                    <label for="full-name">Full Name</label>
+                    <input type="text" id="full-name" name="full-name" placeholder="Enter your full name" required>
+
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                </div>
+
+                <!-- Pick-Up Location & Date Section -->
+                <div class="location-info">
+                    <h2>Pick-Up Details</h2>
+                    <label for="pickup-address">Pick-Up Address</label>
+                    <input type="text" id="pickup-address" name="pickup-address" placeholder="Enter pick-up address" required>
+                    <label for="province">Pick-Up Province:</label>
+                    <div class="goods-type">
+                        <select id="pickup_province" name="pickup_province">
+                            <option value="">Select Province</option>
+                            <option value="KwaZulu_Natal">KwaZulu Natal</option>
+                        </select>
+                    </div>
+                    <label for="pickup-date">Pick-Up Date</label>
+                    <input type="date" id="pickup-date" name="pickup-date" required>
+                </div>
+
+                <!-- Drop-Off Location & Date Section -->
+                <div class="location-info">
+                    <h2>Drop-Off Details</h2>
+                    <label for="dropoff-address">Drop-Off Address</label>
+                    <input type="text" id="dropoff-address" name="dropoff-address" placeholder="Enter drop-off address" required>
+                    <label for="province">Drop-off Province:</label>
+
+                    <div class="goods-type">
+                        <select id="dropoff_province" name="dropoff_province">
+                            <option value="">Select Province</option>
+                            <option value="Eastern_Cape">Eastern Cape</option>
+                            <option value="Free_State">Free State</option>
+                            <option value="Gauteng">Gauteng</option>
+                            <option value="KwaZulu_Natal">KwaZulu Natal</option>
+                            <option value="Limpopo">Limpopo</option>
+                            <option value="Mpumalanga">Mpumalanga</option>
+                            <option value="Northern_Cape">Northern Cape</option>
+                            <option value="North_West">North West</option>
+                            <option value="Western_Cape">Western Cape</option>
+                            <!-- Add more provinces as needed -->
+                        </select>
+                    </div>
+                    
+
+
+                    <label for="dropoff-date">Drop-Off Date</label>
+                    <input type="date" id="dropoff-date" name="dropoff-date" required>
+                </div>
+
+                <!-- Additional Info Section -->
+                <div class="additional-info">
+                    <h2>Additional Information</h2>
+                    <label for="length">Length</label>
+                    <input type="number" id="length" name="length" placeholder="Enter the Length" required>
+
+                    <label for="width">Width</label>
+                    <input type="number" id="width" name="width" placeholder="Enter the Width" required>
+
+                    <label for="height">Height</label>
+                    <input type="number" id="height" name="height" placeholder="Enter the Height" required>
+
+            
+                    <label for="special-instructions">Special Instructions</label>
+                    <textarea id="special-instructions" name="special-instructions" placeholder="Any special instructions for transport"></textarea>
+                </div>
+
+                 <!-- Price Calculation -->
+                 <div class="price-display">
+                    <h2>Total Price: <span id="total-price">R0</span></h2>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="request-btn">
+                    <button type="submit" class="btn">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!--Footer-->
+    <footer>
+        <div class="copyright">
+            <p> &#169; Securemove Logistics All Rights Reserved</p>
+            <div class="social">
+                <a href="https://www.instagram.com/securemove_logistics/" class="social-icon"><i class="bx bxl-instagram"></i></a>
+                <a href="https://wa.me/27793868100" target="_blank" i class="bx bxl-whatsapp"></a>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script type="module">
+        // Import Firebase SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+    
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDyF0hdE5FATvaDMjd1GW8Rq1TDowvFaQ8",
+            authDomain: "move-logistics-14677.firebaseapp.com",
+            databaseURL: "https://move-logistics-14677-default-rtdb.firebaseio.com/",
+            projectId: "move-logistics-14677",
+            storageBucket: "move-logistics-14677.appspot.com",
+            messagingSenderId: "490285994631",
+            appId: "1:490285994631:web:f98ae6fc1294d8a972de22",
+            measurementId: "G-TSKTZ74GJR"
+        };
+
+        const Base_Fee=200;
+        const Volume_Rate=10;
+         let dropdown=document.getElementById("pickup_province");
+            let selectedValue=dropdown.value;
+
+        function DistancePrice(){
+            let Dprice=0;
+            let dropdown=document.getElementById("dropoff_province");
+            let selectedValue=dropdown.value;
+
+            if(selectedValue==="Eastern_Cape"){
+                Dprice=200;
+            } else if(selectedValue==="Free_State"){
+                Dprice=100;
+            }else if(selectedValue==="Mpumalanga"){
+                Dprice=120;    
+            }else if(selectedValue==="KwaZulu_Natal"){
+                Dprice=50;
+            }else if(selectedValue==="Gauteng"){
+                Dprice=140;
+            }else if(selectedValue==="Limpopo"){
+                Dprice=160;
+            }else if(selectedValue==="North_West"){
+                Dprice=180;
+            }else if(selectedValue==="Northern_Cape"){
+                Dprice=220;
+            }else if(selectedValue==="Western_Cape"){
+                Dprice=240;
+            }
+            return Dprice
+        
+            
+        }
+        function Volume(){
+            let length=document.getElementById("length").value;
+            let height=document.getElementById("height").value;
+            let width=document.getElementById("width").value;
+
+            length=parseFloat(length);
+            height=parseFloat(height);
+            width=parseFloat(width);
+
+            
+            return length * width * height;
+        }
+
+        function TotalCost(){
+            return Base_Fee + DistancePrice() + (Volume() * Volume_Rate);
+        }
+        function updatePrice() {
+            const length=document.getElementById("length").value;
+            const width=document.getElementById("width").value;
+            const height=document.getElementById("height").value;
+            const PProvince= document.getElementById("pickup_province").value;
+            const DProvince= document.getElementById("dropoff_province").value;
+            const price = TotalCost();
+            document.getElementById("total-price").textContent = `R${price}`;
+        }
+
+        document.getElementById("dropoff_province").addEventListener("change", updatePrice);
+        document.getElementById("pickup_province").addEventListener("change", updatePrice);
+        document.getElementById("length").addEventListener("input", updatePrice);
+        document.getElementById("width").addEventListener("input", updatePrice);
+        document.getElementById("height").addEventListener("input", updatePrice);
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const Orders = ref(db, "Orders");
+
+    
+        // Function to Auto-Increment Key and Save Data
+        function saveData(event) {
+            event.preventDefault(); // Prevent form reload
+    
+            // Get form data
+            const name = document.getElementById("full-name").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+            const pickupadd = document.getElementById("pickup-address").value;
+            const pickupprov=document.getElementById("pickup_province").value;
+            const pickupdate = document.getElementById("pickup-date").value;
+            const dropoffadd = document.getElementById("dropoff-address").value;
+            const dropoffprov=document.getElementById("dropoff_province").value;
+            const dropoffdate = document.getElementById("dropoff-date").value;
+            const length=document.getElementById("length").value
+            const width=document.getElementById("width").value
+            const height=document.getElementById("height").value
+            const totalprice = document.getElementById("total-price").textContent.replace("R", ""); // Remove R prefix and convert to number
+            const specialinstr = document.getElementById("special-instructions").value;
+    
+            if (name && email && phone) {
+                // Get the last key
+                get(child(ref(db), "Orders"))
+                    .then(snapshot => {
+                        let nextKey = 1; // Default key if no entries exist
+    
+                        if (snapshot.exists()) {
+                            // Get all keys and find the highest one
+                            const data = snapshot.val();
+                            const keys = Object.keys(data).map(Number); // Convert keys to numbers
+                            nextKey = Math.max(...keys) + 1; // Get the next number
+                        }
+    
+                        // Save data with sequential key
+                        set(ref(db, `Orders/${nextKey}`), {
+                            orderid : nextKey,
+                            name: name,
+                            email: email,
+                            phone: phone,
+                            pickup_address: pickupadd,
+                            pickup_province:pickupprov,
+                            pickup_date: pickupdate,
+                            dropoff_address: dropoffadd,
+                            dropoff_province:dropoffprov,
+                            dropoff_date: dropoffdate,
+                            length:length,
+                            width:width,
+                            height:height,
+                            special_instructions: specialinstr,
+                            total_price: totalprice,            
+                        })
+                        .then(() => {
+                                    // Save the transport request data to Local Storage
+                          localStorage.setItem("Orders", JSON.stringify({
+                          name: name,
+                          email: email,
+                          phone: phone,
+                          pickup_address: pickupadd,
+                          pickup_province:pickupprov,
+                          pickup_date: pickupdate,
+                          dropoff_address: dropoffadd,
+                          dropoff_province:dropoffprov,
+                          dropoff_date: dropoffdate,
+                          length:length,
+                          width:width,
+                          height:height,
+                          special_instructions: specialinstr,
+                          total_price: totalprice        
+                        }));
+
+
+                            alert(`Order #${nextKey} Added Successfully!`);
+                            document.getElementById("request-form").reset(); // Reset form
+                          
+                            setTimeout(() => {
+                            window.location.href = "acceptreject.html";
+                            }, 2000);
+                        })
+                        .catch(error => {
+                            console.error("Error saving data: ", error);
+                            alert("Failed to save data.");
+                        });
+    
+                    })
+                    .catch(error => {
+                        console.error("Error fetching data: ", error);
+                    });
+    
+            } else {
+                alert("Please fill in all required fields.");
+            }
+        }
+    
+        // Attach function to form submission
+        document.getElementById("request-form").addEventListener("submit", saveData);
+
+
+
+        document.getElementById("request-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent page reload
+
+    // Check if required fields are filled
+    const name = document.getElementById("full-name").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const pickupAddress = document.getElementById("pickup-address").value;
+    const dropoffAddress = document.getElementById("dropoff-address").value;
+    
+    
+    
+
+});
+
+
+    </script>
+    
+
+
+
+</body>
+
+</html>

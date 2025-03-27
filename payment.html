@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Securemove Logistics - Payment</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
+</head>
+<style>
+    /* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+header{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #eeeff1;
+    padding: 15px 100px;
+}
+
+.logo img{
+    width: 90px;
+}
+
+.navbar{
+    display: flex;
+}
+
+.navbar li{
+    position: relative;
+}
+
+.navbar a{
+    font-size: 1rem;
+    padding: 10px 20px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.navbar a::after{
+   content: "";
+   width: 0;
+   height: 3px;
+   background: var(--gradinet);
+   position: absolute;
+   bottom: -4px;
+   left: 0;
+   transition: 0.5s;
+}
+
+.navbar a:hover::after{
+    width: 100%;
+}
+.header-btn a {
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.sign-up {
+    background: #28a745;
+}
+
+.login {
+    background: #ff5733;
+}
+
+.header-btn a:hover {
+    opacity: 0.8;
+}
+
+/* Payment Section */
+.payment {
+    text-align: center;
+    padding: 200px 20px;
+    background: white;
+    margin: 30px auto;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.heading span {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.heading h1 {
+    margin-top: 10px;
+    font-size: 24px;
+    color: #333;
+}
+
+.payment-container {
+    margin-top: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+    text-align: left;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+button {
+    padding: 12px;
+    background: #007bff;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #222;
+    color: white;
+    margin-top: 50px;
+}
+
+</style>
+<body>
+    <header>
+        <a href="index.html" class="logo"><img src="img/logo.jpg" alt="Logo" /></a>
+
+        <ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#payment">Payment</a></li>
+        </ul>
+        <div class="header-btn">
+            <a href="signuplogin.html" class="sign-up">Sign Up</a>
+            <a href="signuplogin.html" class="login">Login</a>
+        </div>
+    </header>
+
+    <section class="payment" id="payment">
+        <div class="heading">
+            <span>Secure Payment</span>
+            <h1>Complete Your Payment</h1>
+        </div>
+
+        <div class="payment-container">
+            <form id="payment-form">
+                <label>Full Name</label>
+                <input type="text" id="full-name" required />
+
+                <label>Email Address</label>
+                <input type="email" id="email" required />
+
+                <label>Amount</label>
+                <input type="number" id="amount" required min="1">
+               
+                <label>Payment Method</label>
+                <select id="payment-method" required>
+                    <option value="credit-card">Credit Card</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="bank-transfer">Bank Transfer</option>
+                </select>
+
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" required pattern="^\d{13}$" title="Card number must be exactly 13 digits" maxlength="13" />
+
+                <label for="expiry-date">Expiry Date (MM/YYYY)</label>
+                <input type="text" id="expiry-date" required pattern="^(0[1-9]|1[0-2])/\d{2}$" title="Expiry date must be in the format MM/YYYY" placeholder="MM/YYYY" maxlength="5" minlength="5" />
+
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" required pattern="^\d{3,4}$" title="CVV must be 3 or 4 digits" maxlength="4" />
+
+                <button type="submit">Make Payment</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&#169; Securemove Logistics All Rights Reserved</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("payment-form").addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent form from reloading the page
+                const name = document.getElementById("full-name").value;
+            const email = document.getElementById("email").value;
+            const amount = document.getElementById("amount").value;
+            const expiryDate = document.getElementById("expiry-date").value;
+            const expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
+
+            console.log("Form Data:", { name, email, amount, expiryDate });
+
+            // Validate expiry date format
+            if (!expiryPattern.test(expiryDate)) {
+                alert("Invalid expiry date. Please enter in MM/YYYY format.");
+                return;
+            }
+
+            // Validate expiry date is not in the past
+            const [month, year] = expiryDate.split("/").map(Number);
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth() + 1;
+            const currentYear = currentDate.getFullYear() % 100; // Get last two digits
+
+            if (year < currentYear || (year === currentYear && month < currentMonth)) {
+                alert("The expiry date cannot be in the past.");
+                return;
+            }
+
+                // Simulate payment processing
+                console.log("🔄 Processing payment for:", { name, email, amount });
+    
+                // Fake delay to simulate real payment process
+                setTimeout(() => {
+                    console.log("✅ Payment successful!");
+    
+                    alert("Payment Successful! A receipt and your proof of delivery will be sent to " + email);
+                    
+                    // Redirect to homepage after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = "index.html";
+                    }, 2000);
+                }, 1500); // Simulate a short processing delay
+            });
+        });
+    </script>
+    
+
+    
+</body>
+</html>
